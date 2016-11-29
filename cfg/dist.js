@@ -39,4 +39,11 @@ config.module.loaders.push({
   )
 });
 
+
+config.module.loaders.push({
+  test: /\.(png|jpg)$/,
+  loader: 'url-loader?limit=8192'
+});
+
+
 module.exports = config;

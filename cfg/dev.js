@@ -7,6 +7,8 @@ let defaultSettings = require('./defaults');
 
 // Add needed plugins here
 let BowerWebpackPlugin = require('bower-webpack-plugin');
+let precss = require('precss');
+let autoprefixer = require('autoprefixer');
 
 let config = Object.assign({}, baseConfig, {
   entry: [
@@ -27,13 +29,22 @@ let config = Object.assign({}, baseConfig, {
 });
 
 // Add needed loaders to the defaults here
+config.module.loaders.push(
+  {
+    test: /\.(js|jsx)$/,
+    loader: 'react-hot!babel-loader',
+    include: [].concat(
+      config.additionalPaths,
+      [ path.join(__dirname, '/../src') ]
+    )
+  }
+);
+
+
 config.module.loaders.push({
-  test: /\.(js|jsx)$/,
-  loader: 'react-hot!babel-loader',
-  include: [].concat(
-    config.additionalPaths,
-    [ path.join(__dirname, '/../src') ]
-  )
+  test: /\.(png|jpg)$/,
+  loader: 'url-loader?limit=8192'
 });
+
 
 module.exports = config;
